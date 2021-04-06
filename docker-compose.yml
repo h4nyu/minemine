@@ -1,0 +1,19 @@
+version: '2.4'
+
+x-app: &app
+    image: "${DOCKER_REGISTRY}/mine/mine"
+    shm_size: '30gb'
+    working_dir: /srv
+    volumes:
+      - .:/srv
+    runtime: nvidia
+
+services:
+  eth:
+    <<: *app
+    environment:
+      - ETH_POOL
+      - ETH_WALLET
+    command: ethminer -P stratum1+tcp://$ETH_WALLET.Worker@$ETH_POOL
+
+    
