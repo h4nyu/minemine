@@ -9,12 +9,14 @@ x-app: &app
     runtime: nvidia
     restart: on-failure
 
+
 services:
   eth:
     <<: *app
     environment:
+      - WORKER_NAME
       - ETH_POOL
       - ETH_WALLET
-    command: ethminer -P stratum1+tcp://$ETH_WALLET.Worker@$ETH_POOL
+    command: ethminer -P stratum1+tcp://$ETH_WALLET.$WORKER_NAME@$ETH_POOL
 
     
