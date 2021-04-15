@@ -14,9 +14,9 @@ services:
   eth:
     <<: *app
     environment:
-      - WORKER_NAME
+      - WORKER
       - ETH_POOL
-      - ETH_WALLET
-    command: ethminer -P stratum1+tcp://$ETH_WALLET.$WORKER_NAME@$ETH_POOL
+      - ETH_USER
+    command: miner --algo ethash --server $ETH_POOL --user $ETH_USER
 
     

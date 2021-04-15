@@ -9,7 +9,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=11.1 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450,driver<451"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gnupg2 curl ca-certificates \ 
+    && apt-get install -y --no-install-recommends gnupg2 curl ca-certificates xz-utils \ 
     && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub | apt-key add - \
     && echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
     && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
@@ -24,3 +24,8 @@ RUN mkdir ethminer \
     && curl -sL https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz | tar xz -C ethminer \
     && mv ethminer/bin/ethminer /usr/local/bin \
     && chmod +x /usr/local/bin/ethminer
+
+RUN mkdir gminer \
+    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.51/gminer_2_51_linux64.tar.xz | tar xJv -C gminer \
+    && mv gminer/miner /usr/local/bin \
+    && chmod +x /usr/local/bin/miner
