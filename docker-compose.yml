@@ -19,4 +19,10 @@ services:
       - ETH_USER
     command: miner --algo ethash --server $ETH_POOL --user $ETH_USER
 
-    
+  rvn:
+    <<: *app
+    environment:
+      - WORKER
+      - RVN_POOL
+      - RVN_USER
+    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER
