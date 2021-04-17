@@ -26,3 +26,11 @@ services:
       - RVN_POOL
       - RVN_USER
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER
+
+  beam:
+    <<: *app
+    environment:
+      - WORKER
+      - BEAM_POOL
+      - BEAM_USER
+    command: miner --algo beamhash --server $BEAM_POOL --user $BEAM_USER
