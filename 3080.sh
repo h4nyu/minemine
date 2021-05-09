@@ -6,6 +6,5 @@ MEM_OFFSET=1850
 
 nvidia-smi -i $GPUID -pl 225 
 DISPLAY=:0 nvidia-settings --verbose \
-    -a "[gpu:$GPUID]/GPUPowerMizerMode=1" \
-    -a "[gpu:$GPUID]/GPUGraphicsClockOffset[4]=$GPU_OFFSET" \
-    -a "[gpu:$GPUID]/GPUMemoryTransferRateOffset[4]=$MEM_OFFSET"
+    -a "[gpu:$GPUID]/GPUGraphicsClockOffsetAllPerformanceLevels=$GPU_OFFSET" \
+    -a "[gpu:$GPUID]/GPUMemoryTransferRateOffsetAllPerformanceLevels=$MEM_OFFSET"
