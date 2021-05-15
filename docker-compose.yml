@@ -5,21 +5,21 @@ x-app: &app
     build:
       context: .
     shm_size: '30gb'
-    working_dir: /srv
-    volumes:
-      - .:/srv
     runtime: nvidia
     restart: always
 
 
 services:
+  app:
+    <<: *app
+
   eth:
     <<: *app
     environment:
       - WORKER
       - ETH_POOL
       - ETH_USER
-    command: miner --algo ethash --server $ETH_POOL --user $ETH_USER
+    command: miner --algo ethash --server $ETH_POOL --user $ETH_USER.$WORKER
 
   rvn:
     <<: *app
@@ -27,7 +27,7 @@ services:
       - WORKER
       - RVN_POOL
       - RVN_USER
-    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER
+    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER
 
   beam:
     <<: *app
@@ -35,4 +35,15 @@ services:
       - WORKER
       - BEAM_POOL
       - BEAM_USER
-    command: miner --algo beamhash --server $BEAM_POOL --user $BEAM_USER
+    command: miner --algo beamhash --server $BEAM_POOL --user $BEAM_USER.$WORKER
+
+  chia:
+    <<: *app
+    entrypoint: bash chia_entrypoint.sh
+    volumes:
+      - ./chia_entrypoint.sh:/chia_entrypoint.sh
+      - ./chia_keys:/chia_keys
+      - $PLOTS:/plots
+    command: chia plots create -k 32 -n 100 -t $PLOTS/tmp_plots/ -d $PLOTS/plots/
+    environment:
+      - WORKER
