@@ -1,2 +1,4 @@
 .env
 chia_keys
+plots
+tmp_plots
