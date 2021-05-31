@@ -43,7 +43,7 @@ services:
     volumes:
       - ./chia_entrypoint.sh:/chia_entrypoint.sh
       - ./chia_keys:/chia_keys
-      - $PLOTS:/plots
-    command: chia plots create -k 32 -n 100 -t $PLOTS/tmp_plots/ -d $PLOTS/plots/
+      - $MNT:/mnt
+    # command: chia plots create -k 32 -n 100 -t /plots/tmp_plots/ -d /plots/plots/
     environment:
       - WORKER
