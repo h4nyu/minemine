@@ -10,6 +10,8 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=11.2 brand=tesla,driver>=418,driver<419 brand=tes
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \ 
         gnupg2 curl ca-certificates xz-utils software-properties-common \ 
+        python3-setuptools \
+        python3-pip \
         git \ 
         sudo \
     && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub | apt-key add - \
@@ -21,6 +23,13 @@ RUN apt-get update \
         cuda-compat-11-2 \
     && ln -s cuda-11.2 /usr/local/cuda \
     && rm -rf /var/lib/apt/lists/*
+
+RUN cd /usr/bin \
+	&& ln -s idle3 idle \
+	&& ln -s pydoc3 pydoc \
+	&& ln -s python3 python \
+	&& ln -s python3-config python-config
+
 
 RUN mkdir ethminer \
     && curl -sL https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz | tar xz -C ethminer \
@@ -35,6 +44,9 @@ RUN mkdir gminer \
 RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git \
     && cd chia-blockchain \
     && chmod +x install.sh \
-    && ./install.sh
-ADD ./chia_entrypoint.sh chia_entrypoint.sh
+    && ./install.sh \
+    && python setup.py install \
+    && chia init \
+    && sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
+
 

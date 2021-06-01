@@ -39,12 +39,15 @@ services:
 
   chia:
     <<: *app
-    entrypoint: bash chia_entrypoint.sh
+    working_dir: /chia-blockchain
+    entrypoint: ./chia_entrypoint.sh
     volumes:
-      - ./mkplots.sh:/mkplots.sh
-      - ./chia_entrypoint.sh:/chia_entrypoint.sh
+      - ./farmer.sh:/chia-blockchain/farmer.sh
+      - ./mkplots.sh:/chia-blockchain/mkplots.sh
+      - ./chia_entrypoint.sh:/chia-blockchain/chia_entrypoint.sh
       - ./chia_keys:/chia_keys
       - $TMP_PLOTS:/tmp_plots
       - $PLOTS:/plots
+    command: ./farmer.sh
     environment:
       - WORKER
