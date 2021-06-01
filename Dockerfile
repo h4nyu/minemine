@@ -26,7 +26,6 @@ RUN apt-get update \
 
 RUN cd /usr/bin \
 	&& ln -s idle3 idle \
-	# && ln -s pip3 pip \
 	&& ln -s pydoc3 pydoc \
 	&& ln -s python3 python \
 	&& ln -s python3-config python-config
