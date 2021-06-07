@@ -71,5 +71,7 @@ services:
     working_dir: /chia-miner
     volumes:
       - $PLOTS:/plots
+      - ./chia-miner-config.yaml:/chia-miner/config.yaml
+    command: ./hpool-miner-chia
     environment:
       - WORKER
