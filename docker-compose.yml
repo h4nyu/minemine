@@ -65,3 +65,11 @@ services:
       - CHIA_KEYS
       - CHIA_PPK
       - CHIA_PFK
+
+  chia-miner:
+    <<: *app
+    working_dir: /chia-miner
+    volumes:
+      - $PLOTS:/plots
+    environment:
+      - WORKER
