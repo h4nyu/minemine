@@ -51,3 +51,17 @@ services:
     command: ./farmer.sh
     environment:
       - WORKER
+
+  plotter:
+    <<: *app
+    working_dir: /chia-plotter
+    volumes:
+      - $PLOTS:/plots
+      - $TMP_PLOTS:/tmp_plots
+
+    command: ./chia-plotter-linux-amd64 -action plotting -plotting-fpk $CHIA_FPK -plotting-ppk $CHIA_PPK -t /tmp_plots -d /plots -plotting-n 1
+    environment:
+      - WORKER
+      - CHIA_KEYS
+      - CHIA_PPK
+      - CHIA_PFK

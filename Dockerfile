@@ -9,7 +9,7 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=11.2 brand=tesla,driver>=418,driver<419 brand=tes
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \ 
-        gnupg2 curl ca-certificates xz-utils software-properties-common \ 
+        gnupg2 curl ca-certificates xz-utils software-properties-common unzip \ 
         python3-setuptools \
         python3-pip \
         git \ 
@@ -46,5 +46,9 @@ RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git \
     && python setup.py install \
     && chia init \
     && sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
+
+RUN curl -sL https://github.com/hpool-dev/chia-plotter/releases/download/v0.10/chia-plotter-v0.10-x86_64-linux-gnu.zip --output chia-plotter.zip \
+    && unzip chia-plotter.zip \
+    && rm chia-plotter.zip
 
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
