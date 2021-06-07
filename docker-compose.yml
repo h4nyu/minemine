@@ -10,9 +10,6 @@ x-app: &app
 
 
 services:
-  app:
-    <<: *app
-
   eth:
     <<: *app
     environment:
@@ -20,22 +17,6 @@ services:
       - ETH_POOL
       - ETH_USER
     command: miner --algo ethash --server $ETH_POOL --user $ETH_USER.$WORKER
-
-  rvn:
-    <<: *app
-    environment:
-      - WORKER
-      - RVN_POOL
-      - RVN_USER
-    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER
-
-  beam:
-    <<: *app
-    environment:
-      - WORKER
-      - BEAM_POOL
-      - BEAM_USER
-    command: miner --algo beamhash --server $BEAM_POOL --user $BEAM_USER.$WORKER
 
   chia:
     <<: *app
@@ -52,20 +33,6 @@ services:
     environment:
       - WORKER
 
-  plotter:
-    <<: *app
-    working_dir: /chia-plotter
-    volumes:
-      - $PLOTS:/plots
-      - $TMP_PLOTS:/tmp_plots
-
-    command: ./chia-plotter-linux-amd64 -action plotting -plotting-fpk $CHIA_FPK -plotting-ppk $CHIA_PPK -t /tmp_plots -d /plots -plotting-n 1
-    environment:
-      - WORKER
-      - CHIA_KEYS
-      - CHIA_PPK
-      - CHIA_PFK
-
   chia-miner:
     <<: *app
     working_dir: /chia-miner
@@ -75,3 +42,36 @@ services:
     command: ./hpool-miner-chia
     environment:
       - WORKER
+
+
+  # plotter:
+  #   <<: *app
+  #   working_dir: /chia-plotter
+  #   volumes:
+  #     - $PLOTS:/plots
+  #     - $TMP_PLOTS:/tmp_plots
+
+  #   command: ./chia-plotter-linux-amd64 -action plotting -plotting-fpk $CHIA_FPK -plotting-ppk $CHIA_PPK -t /tmp_plots -d /plots -plotting-n 1
+  #   environment:
+  #     - WORKER
+  #     - CHIA_KEYS
+  #     - CHIA_PPK
+  #     - CHIA_PFK
+  #
+
+  # rvn:
+  #   <<: *app
+  #   environment:
+  #     - WORKER
+  #     - RVN_POOL
+  #     - RVN_USER
+  #   command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER
+
+  # beam:
+  #   <<: *app
+  #   environment:
+  #     - WORKER
+  #     - BEAM_POOL
+  #     - BEAM_USER
+  #   command: miner --algo beamhash --server $BEAM_POOL --user $BEAM_USER.$WORKER
+
