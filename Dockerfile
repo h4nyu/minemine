@@ -47,10 +47,6 @@ RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git \
     && chia init \
     && sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
 
-RUN curl -sL https://github.com/hpool-dev/chia-plotter/releases/download/v0.10/chia-plotter-v0.10-x86_64-linux-gnu.zip --output chia-plotter.zip \
-    && unzip chia-plotter.zip \
-    && rm chia-plotter.zip
-
 RUN curl -sL https://github.com/hpool-dev/chia-miner/releases/download/v1.4.0-2/HPool-Miner-chia-v1.4.0-2-linux.zip --output chia-miner.zip \
     && unzip chia-miner.zip \
     && rm chia-miner.zip \

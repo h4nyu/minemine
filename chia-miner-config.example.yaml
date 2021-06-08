@@ -1,0 +1,6 @@
+minerName: oniku
+apiKey: 
+path:
+  - /plots
+scanPath: true
+scanMinute: 60
