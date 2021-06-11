@@ -1,6 +1,4 @@
 #!/bin/sh
-
-chia keys add -f /chia_keys
-
-chia plots add -d /plots
+echo $CHIA_KEY > /chia_key
+chia keys add -f /chia_key
 $@
