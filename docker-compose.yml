@@ -37,7 +37,7 @@ services:
     <<: *app
     working_dir: /chia-miner
     volumes:
-      - $PLOTS:/plots
+      - $MNT:/mnt
       - ./chia-miner-config.yaml:/chia-miner/config.yaml
     command: ./hpool-miner-chia
     environment:
