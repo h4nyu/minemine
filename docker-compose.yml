@@ -24,7 +24,6 @@ services:
     working_dir: /chia-blockchain
     volumes:
       - ./chia_entrypoint.sh:/chia-blockchain/chia_entrypoint.sh
-      - ./chia_keys:/chia_keys
       - ./mkplots.sh:/chia-blockchain/mkplots.sh
       - ./farmer.sh:/chia-blockchain/farmer.sh
       - $PLOTS:/plots

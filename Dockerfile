@@ -37,7 +37,7 @@ RUN mkdir ethminer \
     && chmod +x /usr/local/bin/ethminer
 
 RUN mkdir gminer \
-    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.54/gminer_2_54_linux64.tar.xz | tar xJv -C gminer \
+    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.56/gminer_2_56_linux64.tar.xz | tar xJv -C gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 
