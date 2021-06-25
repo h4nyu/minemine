@@ -38,8 +38,8 @@ services:
     working_dir: /chia-miner
     volumes:
       - $MNT:/mnt
-      - ./chia-miner-config.yaml:/chia-miner/config.yaml
-    command: ./hpool-miner-chia
+      - ./chia-config.yaml:/chia-miner/config.yaml
+    command: ./AzPool-Chia-Miner
     environment:
       - WORKER
 
