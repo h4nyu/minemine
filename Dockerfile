@@ -47,17 +47,9 @@ RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git \
     && chia init \
     && sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
 
-# RUN curl -sL https://github.com/hpool-dev/chia-miner/releases/download/v1.4.0-2/HPool-Miner-chia-v1.4.0-2-linux.zip --output chia-miner.zip \
-#     && unzip chia-miner.zip \
-#     && rm chia-miner.zip \
-#     && mv linux chia-miner
-
-RUN curl -sL https://azpool.sgp1.cdn.digitaloceanspaces.com/download/azpool-linux-amd64-4914.zip --output chia-miner.zip \
+RUN curl -sL https://github.com/hpool-dev/chia-miner/releases/download/v1.4.0-2/HPool-Miner-chia-v1.4.0-2-linux.zip --output chia-miner.zip \
     && unzip chia-miner.zip \
     && rm chia-miner.zip \
-    && mkdir chia-miner \
-    && chmod +x AzPool-Chia-Miner \
-    && chmod +x AzPool-Chia-KeyTool \
-    && mv AzPool-*  chia-miner
+    && mv linux chia-miner
 
 ADD ./chia_entrypoint.sh chia_entrypoint.sh

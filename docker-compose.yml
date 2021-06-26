@@ -39,7 +39,7 @@ services:
     volumes:
       - $MNT:/mnt
       - ./chia-config.yaml:/chia-miner/config.yaml
-    command: ./AzPool-Chia-Miner
+    command: ./hpool-miner-chia
     environment:
       - WORKER
 
