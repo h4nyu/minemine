@@ -41,11 +41,12 @@ RUN mkdir gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 
-RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git \
+RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b pools.testnet9 --recurse-submodules \
     && cd chia-blockchain \
     && python setup.py install \
     && chia init \
-    && sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
+    && chia configure --testnet false \
+    && sed -i 's/localhost/127.0.0.1/g' ~/.chia/testnet9/config/config.yaml
 
 RUN curl -sL https://github.com/hpool-dev/chia-miner/releases/download/v1.4.0-2/HPool-Miner-chia-v1.4.0-2-linux.zip --output chia-miner.zip \
     && unzip chia-miner.zip \

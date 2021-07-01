@@ -32,6 +32,8 @@ services:
     environment:
       - WORKER
       - CHIA_KEY
+      - CHIA_POOL
+      - CHIA_WALLET
 
   chia-miner:
     <<: *app
