@@ -6,6 +6,7 @@ ENV NVIDIA_VISIBLE_DEVICES all
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=11.2 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450,driver<451"
+ENV CHIA_ROOT /root/.chia/mainnet
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \ 
@@ -37,7 +38,7 @@ RUN mkdir ethminer \
     && chmod +x /usr/local/bin/ethminer
 
 RUN mkdir gminer \
-    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.58/gminer_2_58_linux64.tar.xz | tar xJv -C gminer \
+    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.59/gminer_2_59_linux64.tar.xz | tar xJv -C gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 
@@ -46,7 +47,7 @@ RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b p
     && python setup.py install \
     && chia init \
     && chia configure --testnet false \
-    && sed -i 's/localhost/127.0.0.1/g' ~/.chia/testnet9/config/config.yaml
+    && sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
 
 RUN curl -sL https://github.com/hpool-dev/chia-miner/releases/download/v1.4.0-2/HPool-Miner-chia-v1.4.0-2-linux.zip --output chia-miner.zip \
     && unzip chia-miner.zip \
