@@ -35,17 +35,7 @@ services:
       - WORKER
       - CHIA_KEY
       - CHIA_POOL
-      - CHIA_WALLET
-
-  chia-miner:
-    <<: *app
-    working_dir: /chia-miner
-    volumes:
-      - $MNT:/mnt
-      - ./chia-config.yaml:/chia-miner/config.yaml
-    command: ./hpool-miner-chia
-    environment:
-      - WORKER
+      - P2_SINGLETOM_ADDRESS
 
   # rvn:
   #   <<: *app
