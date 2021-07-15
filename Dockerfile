@@ -47,9 +47,4 @@ RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b l
     && python setup.py install \
     && chia init 
 
-RUN curl -sL https://github.com/hpool-dev/chia-miner/releases/download/v1.4.0-2/HPool-Miner-chia-v1.4.0-2-linux.zip --output chia-miner.zip \
-    && unzip chia-miner.zip \
-    && rm chia-miner.zip \
-    && mv linux chia-miner
-
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
