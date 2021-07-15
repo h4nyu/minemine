@@ -27,7 +27,6 @@ services:
       - ./mkplots.sh:/chia-blockchain/mkplots.sh
       - ./farmer.sh:/chia-blockchain/farmer.sh
       - ./mainnet:/root/.chia/mainnet
-      - $PLOTS:/plots
       - $MNT:/mnt
       - $TMP_PLOTS:/tmp_plots
     command: ./farmer.sh
