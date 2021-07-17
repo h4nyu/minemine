@@ -33,7 +33,6 @@ services:
     environment:
       - WORKER
       - CHIA_KEY
-      - CHIA_POOL
       - P2_SINGLETOM_ADDRESS
 
   # rvn:
