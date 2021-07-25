@@ -6,7 +6,6 @@ x-app: &app
       context: .
     shm_size: '30gb'
     runtime: nvidia
-    restart: always
 
 
 services:
@@ -36,20 +35,3 @@ services:
       - CHIA_KEY
       - P2_SINGLETOM_ADDRESS
       - PLOTS
-
-  # rvn:
-  #   <<: *app
-  #   environment:
-  #     - WORKER
-  #     - RVN_POOL
-  #     - RVN_USER
-  #   command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER
-
-  # beam:
-  #   <<: *app
-  #   environment:
-  #     - WORKER
-  #     - BEAM_POOL
-  #     - BEAM_USER
-  #   command: miner --algo beamhash --server $BEAM_POOL --user $BEAM_USER.$WORKER
-

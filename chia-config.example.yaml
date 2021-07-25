@@ -1,7 +1,0 @@
-minerName: oniku
-apiKey: 
-path:
-  - /mnt/disk0
-  - /mnt/disk1
-scanPath: true
-scanMinute: 60
