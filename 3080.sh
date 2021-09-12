@@ -1,7 +1,7 @@
 #!/bin/sh
 
 GPUID=$1
-GPU_OFFSET=-300
+GPU_OFFSET=-150
 MEM_OFFSET=1930
 
 nvidia-smi -i $GPUID -pm ENABLED
