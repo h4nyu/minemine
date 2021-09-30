@@ -36,7 +36,6 @@ services:
       - ./mainnet:/root/.chia/mainnet
       - $MNT:/mnt
       - $TMP_PLOTS:/tmp_plots
-      - $PLOTS:/plots
     command: ./farmer.sh
     environment:
       - WORKER
