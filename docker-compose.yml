@@ -1,7 +1,7 @@
 version: '2.4'
 
 x-app: &app
-    image: "${DOCKER_REGISTRY}/mine/mine"
+    image: "${DOCKER_REGISTRY:-localhost}/mine/mine"
     build:
       context: .
     shm_size: '30gb'
