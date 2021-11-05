@@ -42,7 +42,7 @@ RUN mkdir gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 
-RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules \
+RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b 1.2.11 --recurse-submodules \
     && cd chia-blockchain \
     && python setup.py install \
     && chia init 
