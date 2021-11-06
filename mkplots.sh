@@ -1,2 +1,2 @@
 #!/bin/sh
-chia plots create -c $P2_SINGLETOM_ADDRESS -k 32 -t /tmp_plots $@
+chia plotters madmax -t /tmp_plots -2 /tmp_plots -c $CHIA_POOL_CONTRACT_ADDRESS

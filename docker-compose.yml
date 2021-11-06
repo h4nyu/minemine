@@ -40,5 +40,5 @@ services:
     environment:
       - WORKER
       - CHIA_KEY
-      - P2_SINGLETOM_ADDRESS
       - PLOTS
+      - CHIA_POOL_CONTRACT_ADDRESS
