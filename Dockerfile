@@ -22,8 +22,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         cuda-cudart-11-2=11.2.152-1 \
         cuda-compat-11-2 \
-    && ln -s cuda-11.2 /usr/local/cuda \
-    && rm -rf /var/lib/apt/lists/*
+    && ln -s cuda-11.2 /usr/local/cuda
 
 RUN cd /usr/bin \
 	&& ln -s idle3 idle \
