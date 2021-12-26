@@ -22,8 +22,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         cuda-cudart-11-2=11.2.152-1 \
         cuda-compat-11-2 \
-    && ln -s cuda-11.2 /usr/local/cuda \
-    && rm -rf /var/lib/apt/lists/*
+    && ln -s cuda-11.2 /usr/local/cuda
 
 RUN cd /usr/bin \
 	&& ln -s idle3 idle \
@@ -38,7 +37,13 @@ RUN mkdir ethminer \
     && chmod +x /usr/local/bin/ethminer
 
 RUN mkdir gminer \
+<<<<<<< HEAD
     && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.74/gminer_2_74_linux64.tar.xz | tar xJv -C gminer \
+||||||| c528998
+    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.70/gminer_2_70_linux64.tar.xz | tar xJv -C gminer \
+=======
+    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/2.71/gminer_2_71_linux64.tar.xz | tar xJv -C gminer \
+>>>>>>> 00b52f0441bce619c777240ba88ac9b1de89d780
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 

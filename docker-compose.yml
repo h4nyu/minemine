@@ -35,10 +35,9 @@ services:
       - ./farmer.sh:/chia-blockchain/farmer.sh
       - ./mainnet:/root/.chia/mainnet
       - $MNT:/mnt
-      - $TMP_PLOTS:/tmp_plots
     command: ./farmer.sh
     environment:
       - WORKER
       - CHIA_KEY
-      - P2_SINGLETOM_ADDRESS
-      - PLOTS
+      - CHIA_POOL_CONTRACT_ADDRESS
+      - TMP_PLOTS=${TMP_PLOTS:?}
