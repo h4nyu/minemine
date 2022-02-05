@@ -2,7 +2,7 @@
 
 GPUID=$1
 GPU_OFFSET=-200
-MEM_OFFSET=1900
+MEM_OFFSET=1850
 
 nvidia-smi -i $GPUID -pm ENABLED
 nvidia-smi -i $GPUID -pl 220
