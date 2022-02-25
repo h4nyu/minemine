@@ -15,7 +15,6 @@ services:
       - WORKER
       - ETH_POOL
       - ETH_USER
-    # command: miner --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER -d 0
     command: miner --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER 
 
   rvn:
