@@ -15,7 +15,7 @@ services:
       - WORKER
       - ETH_POOL
       - ETH_USER
-    command: miner --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER 
+    command: miner  --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER
 
   rvn:
     <<: *app
@@ -23,7 +23,7 @@ services:
       - WORKER
       - RVN_POOL
       - RVN_USER
-    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER
+    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
   chia:
     <<: *app
