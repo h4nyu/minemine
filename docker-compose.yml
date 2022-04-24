@@ -33,7 +33,7 @@ services:
       - ./chia_entrypoint.sh:/chia-blockchain/chia_entrypoint.sh
       - ./mkplots.sh:/chia-blockchain/mkplots.sh
       - ./farmer.sh:/chia-blockchain/farmer.sh
-      - ./mainnet:/root/.chia/mainnet
+      - $CHIA_MAINNET:/root/.chia/mainnet
       - $MNT:/mnt
     command: ./farmer.sh
     environment:
