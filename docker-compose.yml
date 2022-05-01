@@ -36,6 +36,8 @@ services:
       - $CHIA_MAINNET:/root/.chia/mainnet
       - $MNT:/mnt
     command: ./farmer.sh
+    ports:
+      - 8444:8444
     environment:
       - WORKER
       - CHIA_KEY

@@ -1,28 +1,34 @@
 FROM debian:bullseye-slim
 
-ENV CUDA_VERSION 11.2.2
-ENV CUDA_PKG_VERSION 10-2=$CUDA_VERSION-1
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=11.2 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450,driver<451"
+ENV NVIDIA_VISIBLE_DEVICES=all \
+    PATH=/usr/local/cuda/bin:/usr/local/nvidia/bin:/root/.local/bin:${PATH} \
+    NVIDIA_DRIVER_CAPABILITIES=compute,utility \
+    NVIDIA_REQUIRE_CUDA="cuda>=11.3" \
+    CUDA_VERSION=11.3.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \ 
-        gnupg2 curl ca-certificates xz-utils software-properties-common unzip \ 
+        gnupg2 \
+        curl \
+        ca-certificates \
+        xz-utils \
+        software-properties-common \
+        unzip \ 
+        gnupg \
         python3-setuptools \
+        build-essential \
         python3-pip \
+        python3-dev \
         git \ 
         sudo \
         watch \
-    && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub | apt-key add - \
+    && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub | apt-key add - \
     && echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
-    && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        cuda-cudart-11-2=11.2.152-1 \
-        cuda-compat-11-2 \
-    && ln -s cuda-11.2 /usr/local/cuda
+        cuda-cudart-11-3=11.3.109-1 \
+        cuda-compat-11-3 \
+        && ln -s cuda-11.3 /usr/local/cuda 
 
 RUN cd /usr/bin \
 	&& ln -s idle3 idle \
@@ -45,5 +51,10 @@ RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b 1
     && cd chia-blockchain \
     && python setup.py install \
     && chia init 
+
+RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/share/keyrings/chia.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/debian/ stable main" | sudo tee /etc/apt/sources.list.d/chia.list > /dev/null \
+    && apt-get update \
+    && apt-get install -y chia-blockchain
 
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
