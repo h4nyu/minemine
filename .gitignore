@@ -4,3 +4,4 @@ plots
 tmp_plots
 chia-config.yaml
 mainnet
+setup.sh
