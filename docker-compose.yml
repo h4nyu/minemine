@@ -15,6 +15,7 @@ services:
       - WORKER
       - ETH_POOL
       - ETH_USER
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: miner  --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER
 
   rvn:
