@@ -2,10 +2,10 @@
 
 GPUID=$1
 GPU_OFFSET=-200
-MEM_OFFSET=1100
+MEM_OFFSET=1000
 
 nvidia-smi -i $GPUID -pm ENABLED
-nvidia-smi -i $GPUID -pl 205
+nvidia-smi -i $GPUID -pl 200
 
 DISPLAY=:0 nvidia-settings --verbose \
     -a "[gpu:$GPUID]/GPUGraphicsClockOffsetAllPerformanceLevels=$GPU_OFFSET" \
