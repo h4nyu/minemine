@@ -47,14 +47,10 @@ RUN mkdir gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 
-RUN git clone --depth=1 https://github.com/Chia-Network/chia-blockchain.git -b 1.3.4 --recurse-submodules \
-    && cd chia-blockchain \
-    && python setup.py install \
-    && chia init 
-
 RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/share/keyrings/chia.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/debian/ stable main" | sudo tee /etc/apt/sources.list.d/chia.list > /dev/null \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/debian/ stable main" | tee /etc/apt/sources.list.d/chia.list > /dev/null \
     && apt-get update \
     && apt-get install -y chia-blockchain
+
 
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
