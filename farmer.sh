@@ -1,3 +1,3 @@
 #!/bin/sh
-chia start farmer-no-wallet -r
+chia start farmer -r
 tail -f /dev/null
