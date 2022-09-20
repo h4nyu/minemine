@@ -35,6 +35,14 @@ services:
       - RVN_USER
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
+  ergo:
+    <<: *app
+    environment:
+      - WORKER
+      - ERGO_POOL
+      - ERGO_USER
+    command: lolMiner --algo AUTOLYKOS2 --pool $ERGO_POOL --user $ERGO_USER.$WORKER 
+
   chia:
     <<: *app
     entrypoint: ./chia_entrypoint.sh

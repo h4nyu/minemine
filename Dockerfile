@@ -10,6 +10,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \ 
         gnupg2 \
         curl \
+        wget \
         ca-certificates \
         xz-utils \
         software-properties-common \
@@ -46,6 +47,12 @@ RUN mkdir gminer \
     && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/3.05/gminer_3_05_linux64.tar.xz | tar xJv -C gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
+
+RUN mkdir lolminer \
+    && wget https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.57/lolMiner_v1.57_Lin64.tar.gz \
+    && tar -xvzf lolMiner_v1.57_Lin64.tar.gz -C lolminer \
+    && mv lolminer/1.57/lolMiner /usr/local/bin \
+    && chmod +x /usr/local/bin/lolMiner
 
 RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/share/keyrings/chia.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/debian/ stable main" | tee /etc/apt/sources.list.d/chia.list > /dev/null \
