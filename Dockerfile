@@ -57,7 +57,9 @@ RUN mkdir lolminer \
 RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/share/keyrings/chia.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/debian/ stable main" | tee /etc/apt/sources.list.d/chia.list > /dev/null \
     && apt-get update \
-    && apt-get install -y chia-blockchain
+    && apt-get install -y chia-blockchain \
+    && rm /opt/chia/libstdc++.so.6
+
 
 
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
