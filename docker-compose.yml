@@ -33,6 +33,7 @@ services:
       - WORKER
       - RVN_POOL
       - RVN_USER
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
   ergo:
@@ -41,6 +42,7 @@ services:
       - WORKER
       - ERGO_POOL
       - ERGO_USER
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: lolMiner --algo AUTOLYKOS2 --pool $ERGO_POOL --user $ERGO_USER.$WORKER 
 
   chia:
