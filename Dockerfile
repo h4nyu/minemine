@@ -48,6 +48,7 @@ RUN mkdir gminer \
     && mv gminer/miner /usr/local/bin \
     && chmod +x /usr/local/bin/miner
 
+
 RUN mkdir lolminer \
     && wget https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.57/lolMiner_v1.57_Lin64.tar.gz \
     && tar -xvzf lolMiner_v1.57_Lin64.tar.gz -C lolminer \
@@ -57,8 +58,7 @@ RUN mkdir lolminer \
 RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/share/keyrings/chia.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/chia.gpg] https://repo.chia.net/debian/ stable main" | tee /etc/apt/sources.list.d/chia.list > /dev/null \
     && apt-get update \
-    && apt-get install -y chia-blockchain \
-    && rm /opt/chia/libstdc++.so.6
+    && apt-get install -y chia-blockchain-cli
 
 
 
