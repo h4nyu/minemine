@@ -5,12 +5,12 @@ x-app: &app
     build:
       context: .
     shm_size: '30gb'
-    runtime: nvidia
 
 
 services:
   eth:
     <<: *app
+    runtime: nvidia
     environment:
       - WORKER
       - ETH_POOL
@@ -20,6 +20,7 @@ services:
 
   etc:
     <<: *app
+    runtime: nvidia
     environment:
       - WORKER
       - ETC_POOL
@@ -29,6 +30,7 @@ services:
 
   rvn:
     <<: *app
+    runtime: nvidia
     environment:
       - WORKER
       - RVN_POOL
@@ -38,6 +40,7 @@ services:
 
   ergo:
     <<: *app
+    runtime: nvidia
     environment:
       - WORKER
       - ERGO_POOL
