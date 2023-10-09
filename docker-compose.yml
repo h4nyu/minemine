@@ -1,9 +1,20 @@
-version: '2.4'
+version: '3.8'
+x-environment: &environment
+  MNT: &MNT ${MNT:-/mnt}
+  CHIA_MAINNET: &CHIA_MAINNET ${CHIA_MAINNET:-./mainnet}
+  TMP_PLOTS: &TMP_PLOTS ${TMP_PLOTS:-/tmp/plots}
+  WORKER: &WORKER ${WORKER:-minemine}
+  CHIA_KEY: &CHIA_KEY ${CHIA_KEY}
+  CHIA_POOL_KEY: &CHIA_POOL_KEY ${CHIA_POOL_KEY}
+  CHIA_POOL_CONTRACT_ADDRESS: &CHIA_POOL_CONTRACT_ADDRESS ${CHIA_POOL_CONTRACT_ADDRESS}
+  NVIDIA_VISIBLE_DEVICES: &NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 
 x-app: &app
     image: "${DOCKER_REGISTRY:-localhost}/mine/mine"
     build:
       context: .
+    environment:
+      <<: *environment
     shm_size: '30gb'
 
 
@@ -15,7 +26,6 @@ services:
       - WORKER
       - ETH_POOL
       - ETH_USER
-      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: miner  --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER
 
   etc:
@@ -25,7 +35,6 @@ services:
       - WORKER
       - ETC_POOL
       - ETC_USER
-      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: miner  --algo etchash --ssl 1 --server $ETC_POOL --user $ETC_USER.$WORKER
 
   rvn:
@@ -35,7 +44,6 @@ services:
       - WORKER
       - RVN_POOL
       - RVN_USER
-      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
   ergo:
@@ -45,7 +53,6 @@ services:
       - WORKER
       - ERGO_POOL
       - ERGO_USER
-      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
     command: lolMiner --algo AUTOLYKOS2 --pool $ERGO_POOL --user $ERGO_USER.$WORKER 
 
   chia:
@@ -53,16 +60,21 @@ services:
     entrypoint: ./chia_entrypoint.sh
     working_dir: /chia-blockchain
     volumes:
-      - ./chia_entrypoint.sh:/chia-blockchain/chia_entrypoint.sh
-      - ./mkplots.sh:/chia-blockchain/mkplots.sh
-      - ./farmer.sh:/chia-blockchain/farmer.sh
-      - $CHIA_MAINNET:/root/.chia/mainnet
-      - $MNT:/mnt
+      - type: build
+        source: ./chia_entrypoint.sh
+        target: /chia-blockchain/chia_entrypoint.sh
+      - type: build
+        source: ./mkplots.sh
+        target: /chia-blockchain/mkplots.sh
+      - type: build
+        source: ./farmer.sh
+        target: /chia-blockchain/farmer.sh
+      - type: bind
+        source: *CHIA_MAINNET
+        target: /root/.chia/mainnet
+      - type: bind
+        source: *MNT
+        target: /mnt
     command: ./farmer.sh
     ports:
       - 8444:8444
-    environment:
-      - WORKER
-      - CHIA_KEY
-      - CHIA_POOL_CONTRACT_ADDRESS
-      - TMP_PLOTS=${TMP_PLOTS:?}
