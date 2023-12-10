@@ -60,13 +60,13 @@ services:
     entrypoint: ./chia_entrypoint.sh
     working_dir: /chia-blockchain
     volumes:
-      - type: build
+      - type: bind
         source: ./chia_entrypoint.sh
         target: /chia-blockchain/chia_entrypoint.sh
-      - type: build
+      - type: bind
         source: ./mkplots.sh
         target: /chia-blockchain/mkplots.sh
-      - type: build
+      - type: bind
         source: ./farmer.sh
         target: /chia-blockchain/farmer.sh
       - type: bind
