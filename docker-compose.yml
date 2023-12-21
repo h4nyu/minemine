@@ -40,10 +40,6 @@ services:
   rvn:
     <<: *app
     runtime: nvidia
-    environment:
-      - WORKER
-      - RVN_POOL
-      - RVN_USER
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
   ergo:
