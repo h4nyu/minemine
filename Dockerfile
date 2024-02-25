@@ -49,10 +49,11 @@ RUN mkdir gminer \
     && chmod +x /usr/local/bin/miner
 
 
+ENV LOLMINER_VERSION=1.84
 RUN mkdir lolminer \
-    && wget https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.76/lolMiner_v1.76_Lin64.tar.gz \
-    && tar -xvzf lolMiner_v1.76_Lin64.tar.gz -C lolminer \
-    && mv lolminer/1.76/lolMiner /usr/local/bin \
+    && wget https://github.com/Lolliedieb/lolMiner-releases/releases/download/${LOLMINER_VERSION}/lolMiner_v${LOLMINER_VERSION}_Lin64.tar.gz \
+    && tar -xvzf lolMiner_v${LOLMINER_VERSION}_Lin64.tar.gz -C lolminer \
+    && mv lolminer/${LOLMINER_VERSION}/lolMiner /usr/local/bin \
     && chmod +x /usr/local/bin/lolMiner
 
 RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/share/keyrings/chia.gpg \
