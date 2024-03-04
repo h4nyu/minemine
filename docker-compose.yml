@@ -32,11 +32,16 @@ services:
       - ETC_POOL
       - ETC_USER
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER
+  kaspa:
+    <<: *app
+    runtime: nvidia
+    command: lolMiner --algo KASPA --pool $KASPA_POOL --user $KASPA_USER.$WORKER
+
 
   rvn:
     <<: *app
     runtime: nvidia
-    command: lolMiner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
+    command: lolMiner --algo kawpow --pool $RVN_POOL --user $RVN_USER.$WORKER 
 
   ergo:
     <<: *app
