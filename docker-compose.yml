@@ -24,15 +24,6 @@ x-app: &app
 
 
 services:
-  eth:
-    <<: *app
-    runtime: nvidia
-    environment:
-      - WORKER
-      - ETH_POOL
-      - ETH_USER
-    command: miner  --algo ethash --ssl 1 --server $ETH_POOL --user $ETH_USER.$WORKER
-
   etc:
     <<: *app
     runtime: nvidia
@@ -40,12 +31,12 @@ services:
       - WORKER
       - ETC_POOL
       - ETC_USER
-    command: miner  --algo etchash --ssl 1 --server $ETC_POOL --user $ETC_USER.$WORKER
+    command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER
 
   rvn:
     <<: *app
     runtime: nvidia
-    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
+    command: lolMiner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
   ergo:
     <<: *app
