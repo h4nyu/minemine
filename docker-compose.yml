@@ -32,6 +32,7 @@ services:
       - ETC_POOL
       - ETC_USER
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER
+
   kaspa:
     <<: *app
     runtime: nvidia
