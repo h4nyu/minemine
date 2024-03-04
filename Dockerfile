@@ -38,17 +38,6 @@ RUN cd /usr/bin \
 	&& ln -s python3-config python-config
 
 
-RUN mkdir ethminer \
-    && curl -sL https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz | tar xz -C ethminer \
-    && mv ethminer/bin/ethminer /usr/local/bin \
-    && chmod +x /usr/local/bin/ethminer
-
-RUN mkdir gminer \
-    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/3.43/gminer_3_43_linux64.tar.xz | tar xJv -C gminer \
-    && mv gminer/miner /usr/local/bin \
-    && chmod +x /usr/local/bin/miner
-
-
 ENV LOLMINER_VERSION=1.84
 RUN mkdir lolminer \
     && wget https://github.com/Lolliedieb/lolMiner-releases/releases/download/${LOLMINER_VERSION}/lolMiner_v${LOLMINER_VERSION}_Lin64.tar.gz \
