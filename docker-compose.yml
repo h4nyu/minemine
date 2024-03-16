@@ -12,6 +12,8 @@ x-environment: &environment
   RVN_USER: &RVN_USER ${RVN_USER}
   ERGO_POOL: &ERGO_POOL ${ERGO_POOL:-asia-erg.2miners.com:8888}
   ERGO_USER: &ERGO_USER ${ERGO_USER}
+  KAS_POOL: &KAS_POOL ${KAS_POOL:-asia-kas.2miners.com:2020}
+  KAS_USER: &KAS_USER ${KAS_USER}
 
 
 x-app: &app
@@ -33,16 +35,21 @@ services:
       - ETC_USER
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER
 
-  kaspa:
+  etc-ergo:
     <<: *app
     runtime: nvidia
-    command: lolMiner --algo KASPA --pool $KASPA_POOL --user $KASPA_USER.$WORKER
+    command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER --dualpool $ERGO_POOL --dualuser $ERGO_USER.$WORKER 
 
+  kas:
+    <<: *app
+    runtime: nvidia
+    command: miner --algo kheavyhash --server $KAS_POOL --user $KAS_USER.$WORKER
 
   rvn:
     <<: *app
     runtime: nvidia
-    command: lolMiner --algo kawpow --pool $RVN_POOL --user $RVN_USER.$WORKER 
+    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
+
 
   ergo:
     <<: *app

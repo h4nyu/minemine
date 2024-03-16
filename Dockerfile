@@ -50,6 +50,10 @@ RUN curl -sL https://repo.chia.net/FD39E6D3.pubkey.asc | gpg --dearmor -o /usr/s
     && apt-get update \
     && apt-get install -y chia-blockchain-cli
 
+RUN mkdir gminer \
+    && curl -sL https://github.com/develsoftware/GMinerRelease/releases/download/3.44/gminer_3_44_linux64.tar.xz | tar xJv -C gminer \
+    && mv gminer/miner /usr/local/bin \
+    && chmod +x /usr/local/bin/miner
 
 
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
