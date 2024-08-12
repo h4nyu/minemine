@@ -1,4 +1,3 @@
-version: '3.8'
 x-environment: &environment
   MNT: &MNT ${MNT:-/mnt}
   CHIA_MAINNET: &CHIA_MAINNET ${CHIA_MAINNET:-./mainnet}
@@ -38,7 +37,7 @@ services:
   etc-ergo:
     <<: *app
     runtime: nvidia
-    command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER --dualpool $ERGO_POOL --dualuser $ERGO_USER.$WORKER 
+    command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ERGO_USER.$WORKER --dualpool $ERGO_POOL --dualuser $ERGO_USER.$WORKER 
 
   kas:
     <<: *app
