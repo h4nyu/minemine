@@ -45,6 +45,10 @@ services:
     <<: *app
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ERGO_USER.$WORKER --dualpool $ERGO_POOL --dualuser $ERGO_USER.$WORKER 
 
+  neox:
+    <<: *app
+    command: miner --algo kawpow --server $NEOX_POOL --user $NEOX_USER.$WORKER 
+
   kas:
     <<: *app
     command: miner --algo kheavyhash --server $KAS_POOL --user $KAS_USER.$WORKER
