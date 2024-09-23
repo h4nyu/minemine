@@ -47,7 +47,7 @@ services:
 
   neox:
     <<: *app
-    command: miner --algo kawpow --server $NEOX_POOL --user $NEOX_USER.$WORKER 
+    command: rigel -a kawpow --coin neox -o stratum+tcp://$NEOX_POOL -u $NEOX_USER -w $WORKER 
 
   kas:
     <<: *app
