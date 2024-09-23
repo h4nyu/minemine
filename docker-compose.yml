@@ -7,6 +7,7 @@ x-environment: &environment
   CHIA_POOL_KEY: &CHIA_POOL_KEY ${CHIA_POOL_KEY}
   CHIA_POOL_CONTRACT_ADDRESS: &CHIA_POOL_CONTRACT_ADDRESS ${CHIA_POOL_CONTRACT_ADDRESS}
   NVIDIA_VISIBLE_DEVICES: &NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
+  NVIDIA_DRIVER_CAPABILITIES: &NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:-all}
   RVN_POOL: &RVN_POOL ${RVN_POOL:-rvn.hiveon.com:8888}
   RVN_USER: &RVN_USER ${RVN_USER}
   ERGO_POOL: &ERGO_POOL ${ERGO_POOL:-asia-erg.2miners.com:8888}
@@ -22,12 +23,18 @@ x-app: &app
     environment:
       <<: *environment
     shm_size: '30gb'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
 
 services:
   etc:
     <<: *app
-    runtime: nvidia
     environment:
       - WORKER
       - ETC_POOL
@@ -36,23 +43,19 @@ services:
 
   etc-ergo:
     <<: *app
-    runtime: nvidia
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ERGO_USER.$WORKER --dualpool $ERGO_POOL --dualuser $ERGO_USER.$WORKER 
 
   kas:
     <<: *app
-    runtime: nvidia
     command: miner --algo kheavyhash --server $KAS_POOL --user $KAS_USER.$WORKER
 
   rvn:
     <<: *app
-    runtime: nvidia
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
 
 
   ergo:
     <<: *app
-    runtime: nvidia
     command: lolMiner --algo AUTOLYKOS2 --pool $ERGO_POOL --user $ERGO_USER.$WORKER 
 
   chia:
