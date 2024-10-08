@@ -53,6 +53,10 @@ services:
     <<: *app
     command: miner --algo kheavyhash --server $KAS_POOL --user $KAS_USER.$WORKER
 
+  firo:
+    <<: *app
+    command: miner --algo firo --server $FIR_POOL --user $FIR_POOL.$WORKER
+
   rvn:
     <<: *app
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
