@@ -14,6 +14,8 @@ x-environment: &environment
   ERGO_USER: &ERGO_USER ${ERGO_USER}
   KAS_POOL: &KAS_POOL ${KAS_POOL:-asia-kas.2miners.com:2020}
   KAS_USER: &KAS_USER ${KAS_USER}
+  FIRO_POOL: &FIRO_POOL ${FIRO_POOL}
+  FIRO_USER: &FIRO_USER ${FIRO_USER}
 
 
 x-app: &app
@@ -55,7 +57,7 @@ services:
 
   firo:
     <<: *app
-    command: miner --algo firo --server $FIR_POOL --user $FIR_POOL.$WORKER
+    command: miner --algo firo --server $FIRO_POOL --user $FIRO_USER.$WORKER
 
   rvn:
     <<: *app
