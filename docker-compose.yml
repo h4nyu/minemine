@@ -61,7 +61,7 @@ services:
 
   rvn:
     <<: *app
-    command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
+    command: t-rex -a kawpow -o $RVN_POOL -u $RVN_USER.$WORKER 
 
 
   ergo:
