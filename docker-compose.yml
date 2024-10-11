@@ -59,6 +59,10 @@ services:
     <<: *app
     command: miner --algo firo --server $FIRO_POOL --user $FIRO_USER.$WORKER
 
+  firo-t:
+    <<: *app
+    command:  t-rex -a firopow -o stratum+tcp://$FIRO_POOL -u $FIRO_USER.$WORKER
+
   rvn:
     <<: *app
     command: t-rex -a kawpow -o $RVN_POOL -u $RVN_USER.$WORKER 
