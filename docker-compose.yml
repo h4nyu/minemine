@@ -17,6 +17,14 @@ x-environment: &environment
   FIRO_POOL: &FIRO_POOL ${FIRO_POOL}
   FIRO_USER: &FIRO_USER ${FIRO_USER}
 
+x-deploy: &deploy
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: all
+          capabilities: [gpu]
+
 
 x-app: &app
     image: "${DOCKER_REGISTRY:-localhost}/mine/mine"
@@ -25,13 +33,6 @@ x-app: &app
     environment:
       <<: *environment
     shm_size: '30gb'
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
 
 
 services:
@@ -42,31 +43,45 @@ services:
       - ETC_POOL
       - ETC_USER
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ETC_USER.$WORKER
+    deploy:
+      <<: *deploy
 
   etc-ergo:
     <<: *app
     command: lolMiner  --algo ETCHASH  --pool $ETC_POOL --user $ERGO_USER.$WORKER --dualpool $ERGO_POOL --dualuser $ERGO_USER.$WORKER 
+    deploy:
+      <<: *deploy
 
   neox:
     <<: *app
     command: rigel -a kawpow --coin neox -o stratum+tcp://$NEOX_POOL -u $NEOX_USER -w $WORKER 
+    deploy:
+      <<: *deploy
 
   kas:
     <<: *app
     command: miner --algo kheavyhash --server $KAS_POOL --user $KAS_USER.$WORKER
+    deploy:
+      <<: *deploy
 
   firo:
     <<: *app
     command: miner --algo firo --server $FIRO_POOL --user $FIRO_USER.$WORKER
+    deploy:
+      <<: *deploy
 
   rvn:
     <<: *app
     command: miner --algo kawpow --server $RVN_POOL --user $RVN_USER.$WORKER 
+    deploy:
+      <<: *deploy
 
 
   ergo:
     <<: *app
     command: lolMiner --algo AUTOLYKOS2 --pool $ERGO_POOL --user $ERGO_USER.$WORKER 
+    deploy:
+      <<: *deploy
 
   chia:
     <<: *app
