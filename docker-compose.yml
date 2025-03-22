@@ -87,6 +87,15 @@ services:
     deploy:
       <<: *deploy
 
+  btg:
+    <<: *app
+    # command: lolMiner --algo EQUI144_5 --pers BgoldPoW --pool $BTG_POOL --user $BTG_USER.$WORKER
+    command: miner --algo 144_5 --pers BgoldPoW --server $BTG_POOL --user $BTG_USER.$WORKER
+    
+
+    deploy:
+      <<: *deploy
+
   chia:
     <<: *app
     entrypoint: ./chia_entrypoint.sh
