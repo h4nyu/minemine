@@ -73,6 +73,8 @@ services:
   firo-t:
     <<: *app
     command:  t-rex -a firopow -o stratum+tcp://$FIRO_POOL -u $FIRO_USER.$WORKER
+    deploy:
+      <<: *deploy
 
   rvn:
     <<: *app
