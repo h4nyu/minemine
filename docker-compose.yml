@@ -28,6 +28,7 @@ x-deploy: &deploy
 
 x-app: &app
     image: "${DOCKER_REGISTRY:-localhost}/mine/mine"
+    runtime: nvidia
     build:
       context: .
     environment:
@@ -66,7 +67,7 @@ services:
 
   firo:
     <<: *app
-    command: miner --algo firo --server $FIRO_POOL --user $FIRO_USER.$WORKER
+    command: miner --algo firopow --server $FIRO_POOL --user $FIRO_USER.$WORKER
     deploy:
       <<: *deploy
 
