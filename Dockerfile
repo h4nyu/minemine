@@ -51,8 +51,3 @@ RUN mkdir rigel \
     && chmod +x /usr/local/bin/rigel
 RUN ln -s /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1 /usr/lib/x86_64-linux-gnu/libnvidia-ml.so
 ADD ./chia_entrypoint.sh chia_entrypoint.sh
-
-RUN mkdir t-rex \
-    && curl -L https://trex-miner.com/download/t-rex-0.26.8-linux.tar.gz | tar xz -C t-rex \
-    && mv t-rex/t-rex /usr/local/bin \
-    && chmod +x /usr/local/bin/t-rex
